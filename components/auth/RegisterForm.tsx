@@ -1,15 +1,15 @@
 import React from "react";
 import styles from "./Auth.module.scss";
-import { Button, Form, Input, notification } from "antd";
-import { LoginFormDTO } from "@/api/dto/auth.dto";
+import { Form, Input, Button, notification } from "antd";
+import { RegisterFormDTO } from "@/api/dto/auth.dto";
 
 import * as Api from "@/api";
 import { setCookie } from "nookies";
 
-export const LoginForm: React.FC = () => {
-  const onSubmit = async (values: LoginFormDTO) => {
+export const RegisterForm: React.FC = () => {
+  const onSubmit = async (values: RegisterFormDTO) => {
     try {
-      const { token } = await Api.auth.login(values);
+      const { token } = await Api.auth.register(values);
 
       notification.success({
         message: "Успешно!",
@@ -18,6 +18,7 @@ export const LoginForm: React.FC = () => {
       });
 
       setCookie(null, "_token", token, { path: "/" });
+
       location.href = "/dashboard";
     } catch (err) {
       console.warn("LoginForm", err);
@@ -29,28 +30,52 @@ export const LoginForm: React.FC = () => {
       });
     }
   };
+
   return (
-    <div className={styles.formBlock}>
+    <div className={styles.fromBlock}>
       <Form name="basic" labelCol={{ span: 8 }} onFinish={onSubmit}>
         <Form.Item
-          label="E-Mail"
+          label="E-mail"
           name="email"
-          rules={[{ required: true, message: "Укажите почту!" }]}
+          rules={[
+            {
+              required: true,
+              message: "Укажите почту!",
+            },
+          ]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: "Укажите пароль!" }]}
+          label="Полное имя"
+          name="fullName"
+          rules={[
+            {
+              required: true,
+              message: "Укажите полное имя",
+            },
+          ]}
         >
           <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Пароль"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: "Укажите пароль",
+            },
+          ]}
+        >
+          <Input.Password />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
-            Войти
+            Регистрация
           </Button>
         </Form.Item>
       </Form>
