@@ -15,8 +15,6 @@ export const checkAuth = async (ctx: GetServerSidePropsContext) => {
       props: {},
     };
   } catch (err) {
-    console.log(err);
-
     return {
       redirect: {
         destination: "/dashboard/auth",
