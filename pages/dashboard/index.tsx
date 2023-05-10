@@ -1,3 +1,4 @@
+import { Header } from "@/components/Header";
 import { checkAuth } from "@/utils/checkAuth";
 import { GetServerSidePropsContext, NextPage } from "next/types";
 import React from "react";
@@ -5,6 +6,7 @@ import React from "react";
 const DashboardPage: NextPage = () => {
   return (
     <main>
+      <Header />
       <h1>Dashboard private</h1>
     </main>
   );
