@@ -4,7 +4,7 @@ import React from "react";
 
 interface Props extends AppProps {
   Component: AppProps["Component"] & {
-    getLayout: (page: React.ReactElement) => React.ReactNode;
+    getLayout?: (page: React.ReactElement) => React.ReactNode;
   };
 }
 
