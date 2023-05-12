@@ -1,9 +1,14 @@
 import { Layout } from "@/layouts/Layout";
 import { checkAuth } from "@/utils/checkAuth";
 import { GetServerSidePropsContext, NextPage } from "next/types";
-import React from "react";
 
-const DashboardPage = () => {
+import React, { ReactElement, ReactNode } from "react";
+
+type NextPageWithLayout = NextPage & {
+  getLayout: (page: ReactElement) => ReactNode;
+};
+
+const DashboardPage: NextPageWithLayout = () => {
   return (
     <main>
       <h1>Dashboard private</h1>
