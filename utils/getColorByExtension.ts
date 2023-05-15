@@ -1,4 +1,4 @@
-const extColor = {
+const extColor: { [key: string]: any } = {
   pdf: "purple",
   xls: "green",
   doc: "blue",
