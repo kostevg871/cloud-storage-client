@@ -45,7 +45,7 @@ export const Header: React.FC = () => {
               </Button>
             }
           >
-            <Avatar></Avatar>
+            <Avatar>Ev</Avatar>
           </Popover>
         </div>
       </div>

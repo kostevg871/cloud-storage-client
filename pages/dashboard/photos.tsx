@@ -16,6 +16,7 @@ import { UploadButton } from "@/components/UploadButton";
 import * as Api from "@/api";
 import { FileItem } from "@/api/dto/files.dto";
 import { FileList } from "@/components/FileList";
+import { DashboardLayout } from "@/layouts/DashboardLayout";
 
 interface Props {
   items: FileItem[];
@@ -26,43 +27,10 @@ type NextPageWithLayout = NextPage<Props> & {
 };
 
 const DashboardPhotoPage: NextPageWithLayout = ({ items }) => {
-  const router = useRouter();
-  const selectedMenu = router.pathname;
-
   return (
-    <main className={styles.dashboardContainer}>
-      <div className={styles.sidebar}>
-        <UploadButton />
-        <Menu
-          className={styles.menu}
-          mode="inline"
-          selectedKeys={[selectedMenu]}
-          items={[
-            {
-              key: "/dashboard",
-              icon: <FileOutlined />,
-              label: "Файлы",
-              onClick: () => router.push("/dashboard"),
-            },
-            {
-              key: "/dashboard/photos",
-              icon: <FileImageOutlined />,
-              label: "Фото",
-              onClick: () => router.push("/dashboard/photos"),
-            },
-            {
-              key: "/dashboard/trash",
-              icon: <DeleteOutlined />,
-              label: "Корзина",
-              onClick: () => router.push("/dashboard/trash"),
-            },
-          ]}
-        />
-      </div>
-      <div className="container">
-        <FileList items={items} />
-      </div>
-    </main>
+    <DashboardLayout>
+      <FileList items={items} />
+    </DashboardLayout>
   );
 };
 
