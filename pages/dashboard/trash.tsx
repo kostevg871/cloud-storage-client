@@ -25,7 +25,7 @@ type NextPageWithLayout = NextPage<Props> & {
   getLayout: (page: ReactElement) => ReactNode;
 };
 
-const DashboardPage: NextPageWithLayout = ({ items }) => {
+const DashboardTrash: NextPageWithLayout = ({ items }) => {
   const router = useRouter();
   const selectedMenu = router.pathname;
 
@@ -66,8 +66,8 @@ const DashboardPage: NextPageWithLayout = ({ items }) => {
   );
 };
 
-DashboardPage.getLayout = (page: React.ReactNode) => {
-  return <Layout title="Dashboard / Главная">{page}</Layout>;
+DashboardTrash.getLayout = (page: React.ReactNode) => {
+  return <Layout title="Dashboard / Корзина">{page}</Layout>;
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
@@ -78,7 +78,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   }
 
   try {
-    const items = await Api.files.getAll();
+    const items = await Api.files.getAll("trash");
     return {
       props: {
         items,
@@ -90,4 +90,4 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   };
 };
 
-export default DashboardPage;
+export default DashboardTrash;
