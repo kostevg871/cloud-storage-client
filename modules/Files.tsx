@@ -1,32 +1,34 @@
+import React from "react";
 import { FileItem } from "@/api/dto/files.dto";
 import { FileAction } from "@/components/FileAction";
 import { FileList, FileSelectType } from "@/components/FileList";
 import { Empty } from "antd";
-import React from "react";
+
 import * as Api from "@/api";
 
 interface FilesProps {
   items: FileItem[];
-  withAction?: boolean;
+  withActions?: boolean;
 }
 
-export const Files: React.FC<FilesProps> = ({ items, withAction }) => {
+export const Files: React.FC<FilesProps> = ({ items, withActions }) => {
   const [files, setFiles] = React.useState(items || []);
-  const [selectIds, setSelectIds] = React.useState<number[]>([]);
+  const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
 
   const onFileSelect = (id: number, type: FileSelectType) => {
     if (type === "select") {
-      setSelectIds((prev) => [...prev, id]);
+      setSelectedIds((prev) => [...prev, id]);
     } else {
-      setSelectIds((prev) => prev.filter((_id) => _id !== id));
+      setSelectedIds((prev) => prev.filter((_id) => _id !== id));
     }
   };
 
   const onClickRemove = () => {
-    setSelectIds([]);
-    setFiles((prev) => prev.filter((file) => !selectIds.includes(file.id)));
-    Api.files.remove(selectIds);
+    setSelectedIds([]);
+    setFiles((prev) => prev.filter((file) => !selectedIds.includes(file.id)));
+    Api.files.remove(selectedIds);
   };
+
   const onClickShare = () => {
     alert("share");
   };
@@ -35,11 +37,11 @@ export const Files: React.FC<FilesProps> = ({ items, withAction }) => {
     <div>
       {files.length ? (
         <>
-          {withAction && (
+          {withActions && (
             <FileAction
               onClickRemove={onClickRemove}
               onClickShare={onClickShare}
-              isActive={selectIds.length > 0}
+              isActive={selectedIds.length > 0}
             />
           )}
           <FileList items={files} onFileSelect={onFileSelect} />

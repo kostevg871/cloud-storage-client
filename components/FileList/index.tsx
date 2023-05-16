@@ -1,15 +1,14 @@
-import { FileItem } from "@/api/dto/files.dto";
 import React from "react";
 import styles from "./FileList.module.scss";
-import { FileCard } from "../FileCard";
+import { FileItem } from "@/api/dto/files.dto";
+import { FileCard } from "@/components/FileCard";
 import Selecto from "react-selecto";
-import Document from "next/document";
 
 export type FileSelectType = "select" | "unselect";
 
 interface FileListProps {
   items: FileItem[];
-  onFileSelect: (id: number, type: FileSelectType) => void;
+  onFileSelect: (id: string, type: FileSelectType) => void;
 }
 
 export const FileList: React.FC<FileListProps> = ({ items, onFileSelect }) => {
@@ -20,22 +19,23 @@ export const FileList: React.FC<FileListProps> = ({ items, onFileSelect }) => {
           <FileCard filename={item.filename} originalName={item.originalName} />
         </div>
       ))}
+
       <Selecto
-        container={document.body}
+        container=".files"
         selectableTargets={[".file"]}
         selectByClick
-        hitRate={35}
+        hitRate={10}
         selectFromInside
         toggleContinueSelect={["shift"]}
         continueSelect={false}
         onSelect={(e) => {
           e.added.forEach((el) => {
             el.classList.add("active");
-            onFileSelect(Number(el.dataset["id"]), "select");
+            onFileSelect(el.dataset["id"] as string, "select");
           });
           e.removed.forEach((el) => {
             el.classList.remove("active");
-            onFileSelect(Number(el.dataset["id"]), "unselect");
+            onFileSelect(el.dataset["id"] as string, "unselect");
           });
         }}
       />

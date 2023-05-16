@@ -20,7 +20,7 @@ type NextPageWithLayout = NextPage<Props> & {
 const DashboardPage: NextPageWithLayout = ({ items }) => {
   return (
     <DashboardLayout>
-      <Files items={items} withAction />
+      <Files items={items} withActions />
     </DashboardLayout>
   );
 };
