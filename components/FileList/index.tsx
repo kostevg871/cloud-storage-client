@@ -8,7 +8,7 @@ export type FileSelectType = "select" | "unselect";
 
 interface FileListProps {
   items: FileItem[];
-  onFileSelect: (id: string, type: FileSelectType) => void;
+  onFileSelect: (id: number, type: FileSelectType) => void;
 }
 
 export const FileList: React.FC<FileListProps> = ({ items, onFileSelect }) => {
@@ -31,11 +31,11 @@ export const FileList: React.FC<FileListProps> = ({ items, onFileSelect }) => {
         onSelect={(e) => {
           e.added.forEach((el) => {
             el.classList.add("active");
-            onFileSelect(el.dataset["id"] as string, "select");
+            onFileSelect(Number(el.dataset["id"]), "select");
           });
           e.removed.forEach((el) => {
             el.classList.remove("active");
-            onFileSelect(el.dataset["id"] as string, "unselect");
+            onFileSelect(Number(el.dataset["id"]), "unselect");
           });
         }}
       />
