@@ -1,4 +1,4 @@
-const extColor: { [key: string]: any } = {
+const extColor = {
   pdf: "purple",
   xls: "green",
   doc: "blue",
@@ -14,5 +14,5 @@ export type Extention = keyof typeof extColor;
 export type Color = (typeof extColor)[Extention];
 
 export const getColorByExtension = (ext: string): Color => {
-  return extColor[ext];
+  return extColor[ext as keyof typeof extColor];
 };

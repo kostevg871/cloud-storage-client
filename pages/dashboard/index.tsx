@@ -6,7 +6,8 @@ import React, { ReactElement, ReactNode } from "react";
 import * as Api from "@/api";
 import { FileItem } from "@/api/dto/files.dto";
 import { DashboardLayout } from "@/layouts/DashboardLayout";
-import { FileList } from "@/components/FileList";
+
+import { Files } from "@/modules/Files";
 
 interface Props {
   items: FileItem[];
@@ -19,7 +20,7 @@ type NextPageWithLayout = NextPage<Props> & {
 const DashboardPage: NextPageWithLayout = ({ items }) => {
   return (
     <DashboardLayout>
-      <FileList items={items} />
+      <Files items={items} withAction />
     </DashboardLayout>
   );
 };
